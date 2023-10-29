@@ -14,5 +14,5 @@ public interface SpellingOperations {
    *  @param query the word to check
    *  @return a list of all valid words that are one edit away from the query
    */
-  public ArrayList<String> nearMisses(String query);
+  public ArrayList<StringBuilder> nearMisses(String query);
 }
