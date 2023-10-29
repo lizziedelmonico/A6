@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class SpellDictionary implements SpellingOperations{
 
-    public HashSet<String> dictionary;
+    public static HashSet<String> dictionary;
     
     public SpellDictionary() throws FileNotFoundException{
         dictionary = new HashSet<String>();
