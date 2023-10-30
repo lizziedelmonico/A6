@@ -20,7 +20,6 @@ public class SpellDictionary implements SpellingOperations{
         }
 
         scanner.close();
-        System.out.println(dictionary);
     }
 
     public void ReadFile(File file) throws FileNotFoundException{
@@ -59,11 +58,13 @@ public class SpellDictionary implements SpellingOperations{
                 possible.add(s);
             }
         }
-        /* to add a letter to original word ADD ALPHABET LOOP!!! >:( */
+        /* to add a letter to original word ADD ALPHABET LOOP!!! :D */
         for(int i = 0; i < sb.length(); i++){
-            StringBuilder s = sb.insert(i, i+1);
-            if(dictionary.contains(s)){
-                possible.add(s);
+            for(int j = 0; j < alphabet.length(); j++){
+                StringBuilder s = sb.insert(i, i+1);
+                if(dictionary.contains(s)){
+                    possible.add(s); 
+                }
             }
         }
         /*loop through input string */
@@ -105,7 +106,7 @@ public class SpellDictionary implements SpellingOperations{
                 possible.add(s);
             }
         }
-        System.out.println(possible);
+        System.out.println(possible.toString());
         return possible;
     }
     
