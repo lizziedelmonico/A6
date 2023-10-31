@@ -15,7 +15,8 @@ public class SpellDictionary implements SpellingOperations{
         String word;
 
         while(scanner.hasNextLine()){
-            word = scanner.nextLine();
+            String uppercase_words = scanner.nextLine();
+            word = uppercase_words.toLowerCase();
             dictionary.add(word);
         }
 
@@ -28,7 +29,8 @@ public class SpellDictionary implements SpellingOperations{
 
         while(scanner.hasNextLine()){
             word = scanner.next();
-            dictionary.add(word);
+            String lowercase_word = word.toLowerCase();
+            dictionary.add(lowercase_word);
         }
 
         scanner.close();
@@ -47,39 +49,44 @@ public class SpellDictionary implements SpellingOperations{
     public ArrayList<StringBuilder> nearMisses(String query) {
         String query_lowercase = query.toLowerCase();
         StringBuilder sb = new StringBuilder(query_lowercase);
-        StringBuilder alphabet = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
         ArrayList<StringBuilder> possible = new ArrayList<StringBuilder>();
         /* to delete letter from original word */
-        for(int i = 0; i < sb.length(); i++){
+        for(int i = 0; i <= sb.length(); i++){
             /* slice or delete substring */
-            StringBuilder s = sb.delete(i, i+1);
-            if(dictionary.contains(s)){
+            sb.delete(i, i+1);
+            if(dictionary.contains(sb)){
                 /* THIS IS SUCH A DUB I ACTUALLY UNDERSTAND IT THANKS PROF RANDO */
-                possible.add(s);
+                possible.add(sb);
             }
+            sb = new StringBuilder(query_lowercase);
         }
         /* to add a letter to original word ADD ALPHABET LOOP!!! :D */
-        for(int i = 0; i < sb.length(); i++){
-            for(int j = 0; j < alphabet.length(); j++){
-                StringBuilder s = sb.insert(i, i+1);
-                if(dictionary.contains(s)){
-                    possible.add(s); 
-                }
-            }
+        for(int i = 0; i <= sb.length(); i++){
+            for(char j = 'a'; j <= 'z'; j++){
+                 sb.insert(i, j);
+                 String word = sb.toString();
+                 if(dictionary.contains(word)){
+                     possible.add(sb); 
+                 }
+                sb = new StringBuilder(query_lowercase);
+             }
+            
         }
         /*loop through input string */
         for(int i = 0; i < sb.length(); i++){
             /* loop through alphabet string */
-            for(int j = 0; j < alphabet.length(); j++){
+            for(char j = 'a'; j <= 'z'; j++){
                 /* replace value of i with letter from alphabet at j */
-                StringBuilder s = sb.replace(i, i+1, String.valueOf(j));
-                if(dictionary.contains(s)){
-                    possible.add(s);
+                sb.replace(i, i+1, String.valueOf(j));
+                String word = sb.toString();
+                if(dictionary.contains(word)){
+                    possible.add(sb);
                 }
-            }
+                sb = new StringBuilder(query_lowercase);
+            } 
         }
         /* loop through input string */
-        for(int i = 0; i < sb.length(); i++){
+        for(int i = 1; i <= sb.length()-1; i++){
             /* character at i */
             char a = sb.charAt(i);
             /* character before i */
@@ -90,23 +97,27 @@ public class SpellDictionary implements SpellingOperations{
             /* set character before i equal to value of character a */
             sb.setCharAt(i-1, a);
 
+            String word = sb.toString();
             /* if dictionary contains the new string */
-            if(dictionary.contains(sb)){
+            if(dictionary.contains(word)){
                 /* add new string to possible array list */
                 possible.add(sb);
             }
+            sb = new StringBuilder(query_lowercase);
         }
+        System.out.println(possible);
+        System.out.println(sb);
         /* loop through input string */
-        for(int i = 0; i < sb.length(); i++){
+        for(int i = 0; i <= sb.length(); i++){
             /* create new StringBuilder adding a space to the word */
             StringBuilder s = sb.replace(i, i+1, " ");
             /* if dictionary contains new StringBuilder */
-            if(dictionary.contains(s)){
+            if((dictionary.contains(s))){
                 /* add new string to possible array list */
-                possible.add(s);
+                possible.add(sb);
             }
+            sb = new StringBuilder(query_lowercase);
         }
-        System.out.println(possible.toString());
         return possible;
     }
     
