@@ -38,7 +38,7 @@ YES 1 pt: SpellChecker runs in file checking mode as described
 
 Kudos / Phase Three:
 
-_____ (Kudos!) Timing experiments completed & described in readme
+PART (Kudos!) Timing experiments completed & described in readme
 
 
 

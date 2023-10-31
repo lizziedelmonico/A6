@@ -1,1 +1,3 @@
 # A6
+
+I am very happy to report that very little Ls were taken for this assignment! I was able to complete it without much assistance, only going to one OH session the entire time. While asking for help isn't a bad thing, I felt a lot of pride in being able to complete the assignment while understanding the concepts by myself. Throughout this semester, I have felt discouraged by my need to ask for help, but I have slowly become more confident in my abilities. I even attempted the "kudos" portion of the assignment this week (my first time doing that I think). Luckily there were no significant VSCode issues and I was able to play around with my code and spell check a lot of random words. 10/10 very fun and informative assignment :D

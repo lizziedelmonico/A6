@@ -1,43 +1,45 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeSet;
 
-/* Creates a HashSet of words to create the "dictionary" and creates methods to find near misses for user input */
-public class SpellDictionary implements SpellingOperations{
+/* An edited version of the SpellDictionary and SpellChecker classes */
+public class Tree {
 
-    /* The HashSet full of words from the "words.txt" file */
-    public static HashSet<String> dictionary;
-    
-    /* Creates a new dictionary HashSet and adds words to it from the text file */
-    public SpellDictionary() throws FileNotFoundException{
-        /* Creates the new dictionary */
-        dictionary = new HashSet<String>();
-        /* Creates a new file from the original one */
+    /* A TreeSet representing all of the words in the dictionary */
+    static TreeSet<String> dictionary;
+
+    /**
+     * Constructor for the Tree class that creates a new dictionary to be used in the classs
+     * @throws FileNotFoundException    If the file cannot be found
+     */
+    public Tree() throws FileNotFoundException{
+        /* TreeSet that contains the words in the dictionary */
+        TreeSet<String> dictionary = new TreeSet<String>();
+        /* The file that will be scanned (contents will be added to the TreeSet) */
         File file = new File("words.txt");
-        /* Creates a scanner to read the file */
+        /* New scanner to scan the file */
         Scanner scanner = new Scanner(file);
-        /* A string representing each word in the text file that will be added to the dictionary */
+        /* The individual words in the file */
         String word;
 
-        /* While the file has a next line, scan the words, convert them to lowercase, and add to the dictionary */
+        /* While the file has a next line, convert words to all lowercase and then add to dictionary */
         while(scanner.hasNextLine()){
-            /* The unedited words from the file */
+            /* Takes in the words from the file */
             String uppercase_words = scanner.nextLine();
-            /* The words from the file edited to all lowercase */
+            /* Converts the words from the file to lowercase */
             word = uppercase_words.toLowerCase();
             /* Adds the word to the dictionary */
             dictionary.add(word);
         }
-
         scanner.close();
     }
 
     /**
-     * Reads the text file full of words and adds them to the dictionary HashSet
+     * Reads the text file and adds the contents to the dictionary
      * @param file      The file being scanned
-     * @throws FileNotFoundException    In case the file cannot be found
+     * @throws FileNotFoundException    If the file cannot be found
      */
     public void ReadFile(File file) throws FileNotFoundException{
         Scanner scanner = new Scanner(file);
@@ -53,11 +55,11 @@ public class SpellDictionary implements SpellingOperations{
         
     }
 
-  /** Checks the dictionary for a specific word and states if it is there or not
-   *  @param query the word to check
-   *  @return true if the query word is in the dictionary.
-   */
-    @Override
+    /**
+     * States if a specific string is in the dictionary
+     * @param query     The string being tested
+     * @return      Whether or not the string is in the dictionary
+     */
     public boolean isListed(String query) {
         if(dictionary.contains(query)){
             return true;
@@ -66,10 +68,11 @@ public class SpellDictionary implements SpellingOperations{
         }
     }
 
-  /** Takes in the user input and checks the dictionary to see if the input would be in there after one edit
-   *  @param query the word to check
-   *  @return a list of all valid words that are one edit away from the query
-   */
+    /**
+     * Tests an incorrectly spelled string to see the potential words created by making one edit
+     * @param query     The string being tested
+     * @return      An ArrayList containing all of the potential correctly spelled words 
+     */
     public ArrayList<StringBuilder> nearMisses(String query) {
         String query_lowercase = query.toLowerCase();
         StringBuilder sb = new StringBuilder(query_lowercase);
@@ -144,6 +147,42 @@ public class SpellDictionary implements SpellingOperations{
         }
         return possible;
     }
-    
+
+    public static void main(String[] args) throws FileNotFoundException{
+        Timer timer = new Timer();
+        timer.start();
+        if(args.length != 0){
+        /* if args exist, run this */
+            for(int i = 0; i < args.length; i++){
+                Tree instance = new Tree();
+                if(!dictionary.contains(args[i])){
+                    System.out.println("Not found: " + args[i]);
+                    System.out.println("Suggestions: " + instance.nearMisses(args[i]));
+                } 
+                else{
+                    System.out.println("'" + args[i] + "' is spelled correctly");
+                }
+            }
+        } 
+        else{
+            Scanner scanner = new Scanner(System.in);
+            while(scanner.hasNextLine()){
+                String currentLine = scanner.nextLine();
+                String lowercase_line = currentLine.toLowerCase();
+                String[] words = lowercase_line.split(" "); 
+                Tree instance = new Tree(); 
+                for(String a : words){
+                    if(dictionary.contains(a));{
+                        System.out.println("Suggestions: " + instance.nearMisses(a));
+                    } if(dictionary.contains(a)){
+                        continue;
+                    }
+                }
+            } scanner.close();
+        }
+        timer.stop();
+        System.out.println(timer.stop());
+    }
+
 
 }

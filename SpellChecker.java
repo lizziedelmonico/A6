@@ -1,8 +1,15 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
+/* Takes in user input or scans a file to check the spellings of words */
 public class SpellChecker{
 
+    /**
+     * Reads words and runs the nearMisses method from SpellDictionary to check the spelling
+     * @param args     The user input from the command line
+     * @throws FileNotFoundException    If the file cannot be found
+     */
     public static void main(String[] args) throws FileNotFoundException{
         if(args.length != 0){
         /* if args exist, run this */
